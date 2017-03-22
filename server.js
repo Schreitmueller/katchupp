@@ -14,5 +14,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
+//Express Routen
+app.get('*', function(req, res) {
+    res.sendfile('./public/index.html');
+});
+
 app.listen(3333); //server starten
 console.log("App listening on port 3333");
