@@ -1,0 +1,21 @@
+{
+  "name": "katchupp",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Jan Schmutz <jan.schmutz@arcor.de>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Schreitmueller/katchupp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-route": "^1.6.3"
+  }
+}

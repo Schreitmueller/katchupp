@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>KatchUpp</title>
+    <base href="/view1">
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+
+
+    <script src="js/controllers/ctrl1.js"></script>
+    <script src="js/controllers/ctrl2.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/client.js"></script>
 </head>
-<body>
-<h1>Hallo Welt</h1>
+<body ng-app="sampleApp" ng-controller="Controller2">
+
+    <div ng-view></div>
+
 </body>
 </html>
