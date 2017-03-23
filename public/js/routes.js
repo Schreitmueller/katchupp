@@ -5,7 +5,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
     $routeProvider
 
-        .when('/', {
+        .when('/view1', {
             templateUrl: 'views/view1.html',
             controller: 'Controller1'
         })
@@ -13,7 +13,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/view2', {
             templateUrl: 'views/view2.html',
             controller: 'Controller2'
-        });
+        })
+        .otherwise({redirectTo: '/view1'});
 
     $locationProvider.html5Mode(true);
 

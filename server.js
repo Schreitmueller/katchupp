@@ -16,7 +16,7 @@ app.use(methodOverride());
 
 //Express Routen
 app.get('*', function(req, res) {
-    res.sendfile('./public/index.html');
+    res.sendFile('./public/index.html');
 });
 
 app.listen(3333); //server starten
