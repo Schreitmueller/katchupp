@@ -11,7 +11,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
 
         .when('/view2', {
-            templateUrl: 'components/vie2/view2.html',
+            templateUrl: 'components/view2/view2.html',
             controller: 'Controller2'
         })
         .otherwise({redirectTo: '/view1'});
