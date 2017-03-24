@@ -6,8 +6,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     $routeProvider
 
         .when('/view1', {
-            templateUrl: 'views/view1.html',
-            controller: 'Controller1'
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
         })
 
         .when('/view2', {
