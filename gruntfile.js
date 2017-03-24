@@ -3,9 +3,22 @@
  */
 module.exports = function(grunt) {
 
-    // Project configuration.
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json')
+        pkg: grunt.file.readJSON('package.json'),
 
-    })
+        cssmin: {
+            my_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'public/css',
+                    ext: '.min.css'
+                }]
+            }
+        }
+
+    });
+
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 };
