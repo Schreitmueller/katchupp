@@ -1,8 +1,12 @@
 /**
  * Created by janschmutz on 22.03.17.
  */
-angular.module('LoginController', []).controller('LoginController', function($scope) {
+angular.module('LoginController', ['myModel']).controller('LoginController', function($scope, test) {
 
     $scope.tagline = 'Facebook Login';
+    $scope.test = test.getUsers();
+    console.log($scope.test);
+
+
 
 });
