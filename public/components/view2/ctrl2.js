@@ -3,6 +3,6 @@
  */
 angular.module('Ctrl2', []).controller('Controller2', function($scope) {
 
-    $scope.tagline = 'View 2';
+    $scope.tagline = 'Youre logged in';
 
 });
