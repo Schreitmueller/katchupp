@@ -44,7 +44,7 @@ var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController'
         {
             FB.login(function(response) {
                 checkLoginState();
-            });
+            },{scope: 'public_profile,email,user_events'});
         }
 
         (function(d, s, id) {
@@ -58,7 +58,7 @@ var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController'
         function testAPI() {
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function(response) {
-                console.log('Successful login for: ' + response.name);
+                console.log(response);
                 document.getElementById('status').innerHTML =
                     'Thanks for logging in, ' + response.name + '!';
             });
