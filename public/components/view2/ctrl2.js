@@ -3,6 +3,8 @@
  */
 angular.module('Ctrl2', []).controller('Controller2', function($scope) {
     var events = [];
+    $scope.lat=0;
+    $scope.long=0;
     $scope.tagline = 'Youre logged in';
     FB.api('/me/events?fields=attending_count,category,description,start_time,place', function(response) {
         var events = [];
@@ -32,6 +34,17 @@ angular.module('Ctrl2', []).controller('Controller2', function($scope) {
         }
     }
 
+    
+    $scope.geocode= function () {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { "address": "Brussels" }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
+                var location = results[0].geometry.location;
+               $scope.lat = location.lat();
+               $scope.long = location.lng();
+            }
+        });
+    }
 
 
 });
