@@ -5,6 +5,16 @@ var express  = require('express');
 var app      = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var mongoose = require('mongoose');
+
+//Database
+
+mongoose.connect('mongodb://janschmutz:1495r2d2@ds143030.mlab.com:43030/katchupp');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('Connected to mlab database');
+});
 
 //Express Config + Middleware hier
 app.use(express.static(__dirname + '/public')); //statischer link für clientseitige Dateien
