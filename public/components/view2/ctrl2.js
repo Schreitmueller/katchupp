@@ -39,7 +39,9 @@ angular.module('Ctrl2', []).controller('Controller2', function($scope) {
         console.log("Geocode " + $scope.address);
 
         $scope.geocoder.geocode( { "address": $scope.address}, function(results, status) {
+                console.log("Status: " + status);
             if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
+
                 var location = results[0].geometry.location;
                $scope.lat = location.lat();
                $scope.long = location.lng();
