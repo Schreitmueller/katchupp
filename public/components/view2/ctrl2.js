@@ -34,10 +34,11 @@ angular.module('Ctrl2', []).controller('Controller2', function($scope) {
         }
     }
 
-    
+    $scope.geocoder = new google.maps.Geocoder();
     $scope.geocode= function () {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode( { "address": "Brussels" }, function(results, status) {
+        console.log("Geocode " + $scope.address);
+
+        $scope.geocoder.geocode( { "address": $scope.address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
                 var location = results[0].geometry.location;
                $scope.lat = location.lat();
