@@ -1,11 +1,29 @@
 /**
  * Created by janschmutz on 22.03.17.
  */
-angular.module('Ctrl2', []).controller('Controller2', function($scope) {
+angular.module('Ctrl2', ['myModel']).controller('Controller2', function($scope, test) {
     var events = [];
     $scope.lat=0;
     $scope.long=0;
     $scope.tagline = 'Youre logged in';
+    $scope.events;
+
+    getEvents();
+
+    function getEvents() {                       //Alle Events vom Server abfragen
+        test.getEvents()
+            .then(function (response) {
+                $scope.events = response.data;
+            }, function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+    }
+
+    /*var event = {                                   Beispiel Event an den Server schicken
+        name: "testevent5"
+    };
+    test.insertEvent(event);*/
+
     FB.api('/me/events?fields=attending_count,category,description,start_time,place', function(response) {
         var events = [];
         var date = getCurrentDate();
@@ -19,7 +37,7 @@ angular.module('Ctrl2', []).controller('Controller2', function($scope) {
             if (year >= date[0] && month >= date[1] && day >= date[2]){
                 events.push(response.data[i]);
             }
-            console.log(event);
+            /*console.log(event);*/
             if (eventDate == date) {
                 events.push(response.data[i]);
             }

@@ -6,7 +6,8 @@ var app      = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
-Test = require('./models/test.js');
+
+Events = require('./models/events.js');
 
 //Database
 
@@ -29,20 +30,31 @@ app.use(methodOverride());
 app.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
-app.get('/api/test', function(req, res) {           //zeigt alle test objekte an
-    Test.getTests(function(err, test){
+
+//REST Api
+app.get('/api/event', function(req, res) {           //zeigt alle test objekte an
+    Events.getEvents(function(err, events){
         if(err){
             throw err;
         }
-        res.json(test);
+        res.json(events);
     })
 });
-app.get('/api/test/:_id', function(req, res) {              //zeigt test objekt einer bestimmten id an
-    Test.getTestbyId(req.params._id, function(err, test){
+app.get('/api/event/:_id', function(req, res) {              //zeigt test objekt einer bestimmten id an
+    Events.getEventbyId(req.params._id, function(err, event){
         if(err){
             throw err;
         }
-        res.json(test);
+        res.json(event);
+    })
+});
+app.post('/api/event', function(req, res) {           //fügt neues event hinzu
+    var event = req.body;
+    Events.addEvent(event, function(err, event){
+        if(err){
+            throw err;
+        }
+        res.json(event);
     })
 });
 
