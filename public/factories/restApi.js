@@ -1,7 +1,7 @@
 /**
  * Created by janschmutz on 27.03.17.
  */
-angular.module('myModel', []).factory('test', ['$http', function($http){
+angular.module('myModel', []).factory('httpFactory', ['$http', function($http){
 
     var urlBase = '/api/event';
     var factory = {};
@@ -14,6 +14,9 @@ angular.module('myModel', []).factory('test', ['$http', function($http){
     };
     factory.insertEvent = function (event) {
         return $http.post(urlBase, event);
+    };
+    factory.updateEvent = function (event) {
+        return $http.put(urlBase + '/' + event._id, event)
     };
 
     return factory;

@@ -9,10 +9,13 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'components/login/login.html',
             controller: 'LoginController'
         })
-
         .when('/view2', {
             templateUrl: 'components/view2/view2.html',
             controller: 'Controller2'
+        })
+        .when('/home', {
+            templateUrl: 'components/home/home.html',
+            controller: 'HomeController'
         })
         .otherwise({redirectTo: '/view1'});
 

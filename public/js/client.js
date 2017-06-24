@@ -1,7 +1,7 @@
 /**
  * Created by janschmutz on 22.03.17.
  */
-var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController', 'Ctrl2'])
+var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController', 'Ctrl2', 'CtrlHome'])
     .run(function($rootScope, $location) {
         console.log("app run");
         $rootScope.rootFunc = function () {
@@ -18,10 +18,8 @@ var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController'
                 testAPI();
             } else {
                 /*initiateFBLogin();*/
-
             }
         }
-
         function checkLoginState() {
             FB.getLoginStatus(function(response) {
                 statusChangeCallback(response);
