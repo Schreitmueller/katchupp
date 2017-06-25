@@ -3,9 +3,8 @@
  */
 angular.module('CtrlHome', ['myModel']).controller('HomeController', function($scope, httpFactory) {
 
-    $scope.events;
     $scope.status;
-    getEvents();
+
 
     //API CALLS
     var p = 1;
@@ -18,6 +17,7 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
         toServer(response);
         nextPage(response);
     });
+    getEvents();
 
     function nextPage(response) {                                        // rekursive Funktion macht Http Get Req an die nächste Seite
         if(response.paging.next && i<3) {                                      // (Facebook SDK Pagination)
@@ -66,7 +66,6 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
         httpFactory.insertEvent(event)
             .then(function (response) {
                 $scope.status = 'Inserted Customer! Refreshing customer list.';
-                $scope.events.push(event);
             }, function(error) {
                 $scope.status = 'Unable to insert customer: ' + error.message;
             });

@@ -28,7 +28,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
 //Express Routen
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
 });
 

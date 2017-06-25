@@ -10,8 +10,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'LoginController'
         })
         .when('/view2', {
-            templateUrl: 'components/view2/view2.html',
-            controller: 'Controller2'
+            templateUrl: 'components/location/location.html',
+            controller: 'LocationController'
         })
         .when('/home', {
             templateUrl: 'components/home/home.html',
