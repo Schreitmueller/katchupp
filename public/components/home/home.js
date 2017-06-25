@@ -8,19 +8,39 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
     getEvents();
 
     //API CALLS
-    var i = 1;
-    FB.api('/me/events?fields=attending_count,category,description,start_time,place,cover&since=1417508443', function(response) {
+    var p = 1;
+    var time = Math.round(new Date().getTime()/1000);
+    var timestamp = time.toString();
+    console.log(timestamp);
+
+    FB.api('/me/events?fields=attending_count,name,category,description,start_time,place,cover&since='+timestamp, function(response) {
         console.log(response);
-        console.log(date);
+        toServer(response);
         nextPage(response);
     });
+
     function nextPage(response) {                                        // rekursive Funktion macht Http Get Req an die nächste Seite
         if(response.paging.next && i<3) {                                      // (Facebook SDK Pagination)
             FB.api(response.paging.next,'GET', {},function(response) {
                 console.log(response);
-                i++;
+                p++;
+                toServer(response);
                 nextPage(response);
             })
+        }
+    }
+    function toServer(response) {                                       //alle events an den server schicken bzw. updaten.
+        for(i=0; i<response.data.length; i++) {
+            var event = {
+                _id: response.data[i].id,
+                name: response.data[i].name,
+                description: response.data[i].description,
+                attending_count: response.data[i].attending_count,
+                latitude: response.data[i].place.location.latitude,
+                longitude: response.data[i].place.location.longitude,
+                city: response.data[i].place.location.city
+            };
+            updateEvents(event);
         }
     }
 
@@ -35,7 +55,7 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
             });
     }
     function updateEvents(event) {                 //update Event -> falls Event nicht existiert, wird per upsert neues Event erstellt
-        httpFactory.updateEvents(event)
+        httpFactory.updateEvent(event)
             .then(function (response) {
                 $scope.status = 'Event successfully updated';
             }, function (error) {
