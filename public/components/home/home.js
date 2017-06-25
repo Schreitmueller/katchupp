@@ -7,6 +7,25 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
     $scope.status;
     getEvents();
 
+    //API CALLS
+    var i = 1;
+    FB.api('/me/events?fields=attending_count,category,description,start_time,place,cover&since=1417508443', function(response) {
+        console.log(response);
+        console.log(date);
+        nextPage(response);
+    });
+    function nextPage(response) {                                        // rekursive Funktion macht Http Get Req an die nächste Seite
+        if(response.paging.next && i<3) {                                      // (Facebook SDK Pagination)
+            FB.api(response.paging.next,'GET', {},function(response) {
+                console.log(response);
+                i++;
+                nextPage(response);
+            })
+        }
+    }
+
+    //REST Functions
+
     function getEvents() {                       //Alle Events vom Server abfragen
         httpFactory.getEvents()
             .then(function (response) {            //Asynchron mit Promise
@@ -15,7 +34,7 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
                 $scope.status = 'Unable to load customer data: ' + error.message;
             });
     }
-    function updateEvents(event) {                       
+    function updateEvents(event) {                 //update Event -> falls Event nicht existiert, wird per upsert neues Event erstellt
         httpFactory.updateEvents(event)
             .then(function (response) {
                 $scope.status = 'Event successfully updated';
@@ -32,9 +51,5 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($s
                 $scope.status = 'Unable to insert customer: ' + error.message;
             });
     }
-
-    FB.api('/me/events?fields=attending_count,category,description,start_time,place', function(response) {
-        console.log(response);
-    });
 
 });
