@@ -9,7 +9,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'components/login/login.html',
             controller: 'LoginController'
         })
-        .when('/view2', {
+        .when('/location', {
             templateUrl: 'components/location/location.html',
             controller: 'LocationController'
         })

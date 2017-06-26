@@ -13,7 +13,7 @@ var app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'LoginController'
             console.log(response);
             if (response.status === 'connected') {
                 $rootScope.$apply( function() {
-                    $location.path("/view2").replace();
+                    $location.path("/location").replace();
                 });
                 testAPI();
             } else {
