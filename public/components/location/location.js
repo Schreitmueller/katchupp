@@ -44,6 +44,7 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
             };
             updateEvents(event);
         }
+        $scope.status = 'Your Events have been successfully sent to the Server or updated';
     }
 
     //REST Functions
@@ -59,7 +60,6 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
     function updateEvents(event) {                 //update Event -> falls Event nicht existiert, wird per upsert neues Event erstellt
         httpFactory.updateEvent(event)
             .then(function (response) {
-                $scope.status = 'Your Events have been successfully sent to the Server or updated';
                 console.log(response);
             }, function (error) {
                 $scope.status = 'Unable to update customer data: ' + error.message;

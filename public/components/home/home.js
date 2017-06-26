@@ -14,7 +14,7 @@ angular.module('CtrlHome', ['myModel']).controller('HomeController', function($r
             .then(function (response) {
                 $scope.myevents = response.data;
             }, function (error) {
-                console.log('error');
+                console.log(error.message);
             });
     }
     function getEvents() {                       //Alle Events vom Server abfragen
