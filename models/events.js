@@ -32,12 +32,18 @@ var eventSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    location: {
+        type: {
+            type: String
+        },
+        coordinates: []
+    },
     create_date: {
         type: Date,
         default: Date.now
     }
 });
-
+eventSchema.index({location: '2dsphere'});
 
 var Events = module.exports = mongoose.model('event', eventSchema, 'event');
 
@@ -58,8 +64,25 @@ module.exports.updateEvent = function (id, event, options, callback) {
         attending_count: event.attending_count,
         latitude: event.latitude,
         longitude: event.longitude,
-        city: event.city
+        city: event.city,
+        location: {
+            type: "Point",
+            coordinates: [event.latitude,event.longitude]
+        }
     };
 
     Events.findOneAndUpdate(query, update, options, callback);
+};
+module.exports.getEventsbyLocation = function(location, callback) {
+    var longitude = parseFloat(location.long);
+    var latitude = parseFloat(location.lat);
+    var query = {
+        location: {
+            $near : {
+            $geometry: { type: "Point",  coordinates: [longitude,latitude] },
+            $maxDistance: 10000
+            }
+        }
+    }
+    Events.find(query, callback);
 };

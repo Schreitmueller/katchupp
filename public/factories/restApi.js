@@ -18,7 +18,9 @@ angular.module('myModel', []).factory('httpFactory', ['$http', function($http){
     factory.updateEvent = function (event) {
         return $http.put(urlBase + '/' + event._id, event)
     };
-
+    factory.getLocation = function (lat,long) {
+        return $http.get('api/location?lat='+lat+'&long='+long);
+    };
     return factory;
 
 }]);

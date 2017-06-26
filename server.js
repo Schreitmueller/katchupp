@@ -28,7 +28,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
 //Express Routen
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
 
@@ -43,6 +43,15 @@ app.get('/api/event', function(req, res) {           //zeigt alle test objekte a
 });
 app.get('/api/event/:_id', function(req, res) {              //zeigt test objekt einer bestimmten id an
     Events.getEventbyId(req.params._id, function(err, event){
+        if(err){
+            throw err;
+        }
+        res.json(event);
+    })
+});
+app.get('/api/location', function(req, res) {
+    var location = req.query;
+    Events.getEventsbyLocation(location, function (err, event) {
         if(err){
             throw err;
         }

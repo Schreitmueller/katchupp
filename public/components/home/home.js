@@ -1,51 +1,22 @@
 /**
  * Created by janschmutz on 22.03.17.
  */
-angular.module('CtrlHome', ['myModel']).controller('HomeController', function($scope, httpFactory) {
+angular.module('CtrlHome', ['myModel']).controller('HomeController', function($rootScope, $scope, httpFactory) {
 
-    $scope.status;
+    var mylong = $rootScope.coords.longitude;
+    var mylat = $rootScope.coords.latitude;
+    getLocation(mylong.toString(),mylat.toString());
 
+    $scope.myevents = "Events";
 
-    //API CALLS
-    var p = 1;
-    var time = Math.round(new Date().getTime()/1000);
-    var timestamp = time.toString();
-    console.log(timestamp);
-
-    FB.api('/me/events?fields=attending_count,name,category,description,start_time,place,cover&since='+timestamp, function(response) {
-        console.log(response);
-        toServer(response);
-        nextPage(response);
-    });
-    getEvents();
-
-    function nextPage(response) {                                        // rekursive Funktion macht Http Get Req an die nächste Seite
-        if(response.paging.next && i<3) {                                      // (Facebook SDK Pagination)
-            FB.api(response.paging.next,'GET', {},function(response) {
-                console.log(response);
-                p++;
-                toServer(response);
-                nextPage(response);
-            })
-        }
+    function getLocation(lat,long) {
+        httpFactory.getLocation(lat,long)
+            .then(function (response) {
+                $scope.myevents = response.data;
+            }, function (error) {
+                console.log('error');
+            });
     }
-    function toServer(response) {                                       //alle events an den server schicken bzw. updaten.
-        for(i=0; i<response.data.length; i++) {
-            var event = {
-                _id: response.data[i].id,
-                name: response.data[i].name,
-                description: response.data[i].description,
-                attending_count: response.data[i].attending_count,
-                latitude: response.data[i].place.location.latitude,
-                longitude: response.data[i].place.location.longitude,
-                city: response.data[i].place.location.city
-            };
-            updateEvents(event);
-        }
-    }
-
-    //REST Functions
-
     function getEvents() {                       //Alle Events vom Server abfragen
         httpFactory.getEvents()
             .then(function (response) {            //Asynchron mit Promise
