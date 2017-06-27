@@ -70,9 +70,22 @@ app.post('/api/event', function(req, res) {           //fügt neues event hinzu
 app.put('/api/event/:_id', function(req, res) {           //findet und updatet event
     var id = req.params._id;
     var event = req.body;
-    Events.updateEvent(id, event, {upsert: true,new: true,setDefaultsOnInsert: true}, function(err, event){
+    var options = {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+    }
+    Events.updateEvent(id, event, options, function(err, event){
         if(err){                    // upsert -> falls das angeforderte event nicht existiert erstellt er ein neues document
             return;
+        }
+        res.json(event);
+    })
+});
+app.delete('/api/event', function(req, res) {           //löscht alte events
+    Events.deleteEvents(function(err, event){
+        if(err){
+            throw err;
         }
         res.json(event);
     })

@@ -20,17 +20,12 @@ var eventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    latitude: {
-        type: Number,
-        required: true
-    },
-    longitude: {
-        type: Number,
-        required: true
-    },
     city: {
         type: String,
         required: true
+    },
+    start_time: {
+        type: Date
     },
     location: {
         type: {
@@ -62,13 +57,12 @@ module.exports.updateEvent = function (id, event, options, callback) {
         name: event.name,
         description: event.description,
         attending_count: event.attending_count,
-        latitude: event.latitude,
-        longitude: event.longitude,
         city: event.city,
         location: {
             type: "Point",
             coordinates: [event.latitude,event.longitude]
-        }
+        },
+        start_time: new Date(event.start_time)
     };
 
     Events.findOneAndUpdate(query, update, options, callback);
@@ -85,4 +79,9 @@ module.exports.getEventsbyLocation = function(location, callback) {
         }
     }
     Events.find(query, callback);
+};
+module.exports.deleteEvents = function (callback) {
+    var today = new Date();
+    var query = {_id : id};
+    Events.remove(query, callback);
 };

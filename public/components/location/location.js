@@ -12,14 +12,12 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
     var p = 1;
     var time = Math.round(new Date().getTime()/1000);
     var timestamp = time.toString();
-    console.log(timestamp);
 
     FB.api('/me/events?fields=attending_count,name,category,description,start_time,place,cover&since='+timestamp, function(response) {
-        console.log(response);
+        console.log(response.data);
         toServer(response);
         nextPage(response);
     });
-    getEvents();
 
     function nextPage(response) {                                        // rekursive Funktion macht Http Get Req an die nächste Seite
         if(response.paging.next && i<3) {                                      // (Facebook SDK Pagination)
@@ -40,7 +38,8 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
                 attending_count: response.data[i].attending_count,
                 latitude: response.data[i].place.location.latitude,
                 longitude: response.data[i].place.location.longitude,
-                city: response.data[i].place.location.city
+                city: response.data[i].place.location.city,
+                start_time: response.data[i].start_time
             };
             updateEvents(event);
         }
