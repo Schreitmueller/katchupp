@@ -22,7 +22,7 @@ angular.module('Geo', []).factory('geolocationApi', ['$q', '$window', function (
 
         return deferred.promise;
     }
-
+    // fill in google api calls
     return {
         getCurrentPosition: getCurrentPosition
     };
