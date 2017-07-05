@@ -27,6 +27,9 @@ var eventSchema = mongoose.Schema({
     start_time: {
         type: Date
     },
+    end_time: {
+        type: Date
+    },
     location: {
         type: {
             type: String
@@ -62,7 +65,8 @@ module.exports.updateEvent = function (id, event, options, callback) {
             type: "Point",
             coordinates: [event.latitude,event.longitude]
         },
-        start_time: new Date(event.start_time)
+        start_time: new Date(event.start_time),
+        end_time: new Date(event.end_time)
     };
 
     Events.findOneAndUpdate(query, update, options, callback);
@@ -82,6 +86,12 @@ module.exports.getEventsbyLocation = function(location, callback) {
 };
 module.exports.deleteEvents = function (callback) {
     var today = new Date();
-    var query = {_id : id};
+    var tt = today.toISOString();
+    console.log(tt);
+    var query = {
+        end_time: {
+            $lt : new Date(tt)
+        }
+    }
     Events.remove(query, callback);
 };
