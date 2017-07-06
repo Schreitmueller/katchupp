@@ -40,7 +40,8 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
                 longitude: response.data[i].place.location.longitude,
                 city: response.data[i].place.location.city,
                 start_time: response.data[i].start_time,
-                end_time: response.data[i].end_time
+                end_time: response.data[i].end_time,
+                cover: response.data[i].cover.source
             };
             updateEvents(event);
         }

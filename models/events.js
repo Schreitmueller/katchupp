@@ -12,6 +12,9 @@ var eventSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    cover: {
+        type: String
+    },
     description: {
         type: String,
         required: true
@@ -58,6 +61,7 @@ module.exports.updateEvent = function (id, event, options, callback) {
     var query = {_id : id};
     var update = {
         name: event.name,
+        cover: event.cover,
         description: event.description,
         attending_count: event.attending_count,
         city: event.city,

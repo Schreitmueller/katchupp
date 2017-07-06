@@ -1,4 +1,7 @@
 <h1>Events in der Nähe</h1>
 <p>{{status}}</p>
-<p>{{myevents}}</p>
 
+<div ng-repeat="event in myevents">
+    <p>{{event.name}}</p>
+    <img src={{event.cover}}>
+</div>
