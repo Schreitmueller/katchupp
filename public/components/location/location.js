@@ -77,33 +77,28 @@ angular.module('CtrlLocation', ['myModel','Geo']).controller('LocationController
 
     //Geolocation
 
-    $scope.getLocation = function () {
+    $scope.getLocation = function (switchPath) {
         geolocationApi.getCurrentPosition()
             .then(function (response) {
                 $scope.lat = response.coords.latitude;
                 $scope.long = response.coords.longitude;
                 $rootScope.coords = response.coords;
-                $location.path('/home');
+                if(switchPath) {
+                    $location.path('/home');
+                }
             }, function (error) {
                 console.log(error.message);
             });
     };
 
-
-/*    $scope.geocoder = new google.maps.Geocoder();
-    $scope.geocode= function () {
-        console.log("Geocode " + $scope.address);
-
-        $scope.geocoder.geocode( { "address": $scope.address}, function(results, status) {
-                console.log("Status: " + status);
-            if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
-
-                var location = results[0].geometry.location;
-               $scope.lat = location.lat();
-               $scope.long = location.lng();                    //location wird erst beim 2ten click angezeigt weil die verarbeitung noch nicht
-            }                                                   //abgeschlossen ist. Entweder mit $scope.$digest() oder besser nem promise lösen
-        });
-    }*/
-
-
+    $scope.getNearbyCities = function(){
+        // Working example url http://gd.geobytes.com/GetNearbyCities?radius=10000&Latitude=48.2656&Longitude=10.98461&limit=5
+        console.log("Trying to get closest cities");
+        httpFactory.getNearestCities($scope.lat,$scope.long)
+            .then(function (response) {            //Asynchron mit Promise
+                $scope.events = response.data;
+            }, function (error) {
+                $scope.status = 'Unable to load customer data: ' + error.message;
+            });
+    }
 });

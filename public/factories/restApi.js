@@ -21,6 +21,19 @@ angular.module('myModel', []).factory('httpFactory', ['$http', function($http){
     factory.getLocation = function (lat,long) {
         return $http.get('api/location?lat='+lat+'&long='+long);
     };
+    factory.getNearestCities = function(lat,long){
+        // TODO PSC can't acces geobytes because of refused origin header
+        var req = {
+            method: 'GET',
+            url: 'http://gd.geobytes.com/GetNearbyCities',
+            data: { radius: '10000',
+                Latitude: lat,
+                Longitude: long,
+                limit :5
+            }
+        };
+        return $http(req);
+    };
     return factory;
 
 }]);

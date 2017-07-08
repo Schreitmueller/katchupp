@@ -2,9 +2,15 @@
 <div id="status">
 </div>
 <p>{{status}}</p>
-<p>Press to get current location</p>
-<button ng-click="getLocation()">Find Events nearby</button>
+<p>Choose one of the following actions:</p>
+<p><button ng-click="getLocation(false)">Load current user location</button><br>
+</p>
+<p>
+    <button ng-click="getLocation(true)">Find Events nearby and show them</button>
 <br>
+</p>
+<p>Deine Location ist (Lat: {{lat}} | Long: {{long}})</p>
+<button ng-click="getNearbyCities()">Find nearest cities</button>
 
 
 <!--<div>
