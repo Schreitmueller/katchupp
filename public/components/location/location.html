@@ -11,7 +11,13 @@
 </p>
 <p>Deine Location ist (Lat: {{lat}} | Long: {{long}})</p>
 <button ng-click="getNearbyCities()">Find nearest cities</button>
+<bold>Städte in der Nähe</bold>
+<ul>
+    <li ng-repeat="city in nearbyCities">
+        <p>{{city.name}} (Lat: {{city.location.lat}} | Long: {{city.location.lng}})</p>
 
+    </li>
+</ul>
 
 <!--<div>
     <h2>Geocoding</h2>
