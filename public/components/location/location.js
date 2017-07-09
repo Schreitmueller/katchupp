@@ -95,9 +95,8 @@ angular.module('CtrlLocation', ['myModel', 'Geo']).controller('LocationControlle
     };
 
     $scope.getNearbyCities = function () {
-        // Working example url http://gd.geobytes.com/GetNearbyCities?radius=10000&Latitude=48.2656&Longitude=10.98461&limit=5
         console.log("Trying to get closest cities");
-        if($scope.lat==0){
+        if($scope.lat== null || $scope.lat == 0){
             $scope.getLocation(false);
         }
         httpFactory.getNearbyCities($scope.lat, $scope.long)
@@ -113,7 +112,7 @@ angular.module('CtrlLocation', ['myModel', 'Geo']).controller('LocationControlle
                 });
             }),
             function (error) {
-                $scope.status = 'Unable to load customer data: ' + error.message;
+                $scope.status = 'Unable to load nearest cities: ' + error.message;
             };
     };
 

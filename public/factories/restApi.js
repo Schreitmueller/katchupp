@@ -22,7 +22,6 @@ angular.module('myModel', []).factory('httpFactory', ['$http', function($http){
         return $http.get('api/location?lat='+lat+'&long='+long);
     };
     factory.getNearbyCities = function(lat, long){
-        // TODO PSC can't acces geobytes because of refused origin header
         var req = {
             method: 'GET',
             url: 'https://maps.googleapis.com/maps/api/geocode/json',
@@ -30,7 +29,7 @@ angular.module('myModel', []).factory('httpFactory', ['$http', function($http){
                 latlng : lat+","+long,
                 key: "AIzaSyA0Zk0qkY2wof0ezmfB8TM3jzr08NKJ8ek",
                 language: 'de',
-                result_type: 'political|country'
+                result_type: 'political'
             }
         };
         return $http(req);
